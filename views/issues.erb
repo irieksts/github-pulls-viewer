@@ -21,7 +21,7 @@
 			</tr>
 			<% end %>
 			<% example_issue_uri = issues[0]['html_url'] %>
-			<tr><td></td><td></td><td></td><td><a href='<%= example_issue_uri[0..example_issue_uri.rindex('/')] %>'>View all issues on GitHub</a></td></tr>
+			<tr><td><a href='<%= example_issue_uri[0..example_issue_uri.rindex(repo)-1] + repo + "/issues" %>'>View all</a></td><td></td><td></td><td></td></tr>
 		</tbody>
 	</table>
 </div>

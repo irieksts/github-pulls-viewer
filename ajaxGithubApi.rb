@@ -1,13 +1,12 @@
 require 'sinatra'
 require 'rest_client'
-require 'pp'
 require 'json'
 require 'link_header'  # see https://github.com/asplake/link_header
 
 configure do
 	set :thisHost, "localhost:4567"         
 	set :githubHost, "api.github.com"			# extract these to configuration / have them passed in with request
-	#set :username, "" # add username here
+	set :username, "octocat" # add your username here
 	#set :password, "" # add password here
 end
 
@@ -16,6 +15,11 @@ end
 # /repos/:owner/:repo/issues     e.g. https://api.github.com/repos/hmsonline/storm-cassandra/issues
 
 # main page erb for the subscriptions
+
+get '/' do 
+  redirect "/subscriptions"
+end
+
 get '/subscriptions' do
   redirect "/subscriptions/#{settings.username}" # this won't work if a username hasn't been set in the params above
 end
@@ -30,7 +34,6 @@ end
 get '/issues/:owner/:repo' do
   queryStringHash = qs_to_hash(request.query_string)
   user = queryStringHash["user"]
-  puts user
   owner = params[:owner]
   repo = params[:repo]
   issues = fetchOpenIssues(owner, repo)
@@ -82,7 +85,7 @@ def fetchSubscriptions(user, hasOpenIssues) # !!! REFACTOR DUPLICAION
     if (open_issues == 0 && hasOpenIssues) 
       # don't add to array because there are no open issues and we are not returning these subscriptions
     else
-      puts result["full_name"] + " has " + open_issues.to_s + " open issues"
+      # puts result["full_name"] + " has " + open_issues.to_s + " open issues"
       subscriptionsToReturn << result
     end
   end
@@ -95,7 +98,7 @@ def fetchSubscriptions(user, hasOpenIssues) # !!! REFACTOR DUPLICAION
       if (open_issues == 0 && hasOpenIssues) 
         # don't add to array because there are no open issues and we are not returning these subscriptions
       else
-        puts result["full_name"] + " has " + open_issues.to_s + " open issues"
+        # puts result["full_name"] + " has " + open_issues.to_s + " open issues"
         subscriptionsToReturn << result
       end
     end
@@ -127,16 +130,13 @@ def buildApiUri(path, query_string)
   if ((defined? settings.username) && (defined? settings.password))
     authString = settings.username + ":" + settings.password + "@"
   end
-	uri = "https://" + authString + settings.githubHost + path + "?" + query_string
-	puts uri
-	uri
+	"https://" + authString + settings.githubHost + path + "?" + query_string
 end
 
 def add_authentication(uri)
   if ((defined? settings.username) && (defined? settings.password))
     uri = uri.gsub('://', '://' + authString = settings.username + ":" + settings.password + "@")
   end
-  puts uri
   uri
 end
 
