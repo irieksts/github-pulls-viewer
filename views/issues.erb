@@ -1,0 +1,27 @@
+<!-- Begin page content -->
+<div class="container">
+	<div class="page-header">
+		<a class="btn btn-primary btn-sm" href='/subscriptions/<%= user %>'>Back to <%= user %>'s subscriptions list</a>
+		<h1>Open items for <%= owner + "/" + repo %></h1>
+	</div>
+
+	<table id='issuesTable' class='table table-striped table-hover tablesorter'>
+		<thead>
+			<tr>
+				<th>#</th><th>Type</th><th>User</th><th>Title</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% issues.each do | issue |  %>
+			<tr>
+				<td><a href='<%= issue['html_url'] %>'><%= issue['number'] %></a></td>
+				<td><%= if issue['pull_request']['html_url'].class == String then "<strong>Pull Request</strong>" else "Issue" end %></td>
+				<td><a href='<%= issue['html_url'] %>'><%= issue['user']['login'] %></a></td>
+				<td><%= issue['title'] %></td>
+			</tr>
+			<% end %>
+			<% example_issue_uri = issues[0]['html_url'] %>
+			<tr><td></td><td></td><td></td><td><a href='<%= example_issue_uri[0..example_issue_uri.rindex('/')] %>'>View all issues on GitHub</a></td></tr>
+		</tbody>
+	</table>
+</div>
