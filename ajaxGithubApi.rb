@@ -6,7 +6,7 @@ require 'link_header'  # see https://github.com/asplake/link_header
 configure do
 	set :thisHost, "localhost:4567"         
 	set :githubHost, "api.github.com"			# extract these to configuration / have them passed in with request
-	set :username, "octocat" # add your username here
+	set :username, "jamestyack" # add your username here
 	#set :password, "" # add password here
 end
 
