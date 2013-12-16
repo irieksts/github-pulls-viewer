@@ -1,0 +1,26 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    link_header (0.0.8)
+    mime-types (2.0)
+    newrelic_rpm (3.6.7.159)
+    rack (1.5.2)
+    rack-protection (1.5.1)
+      rack
+    rest-client (1.6.7)
+      mime-types (>= 1.16)
+    sinatra (1.4.3)
+      rack (~> 1.4)
+      rack-protection (~> 1.4)
+      tilt (~> 1.3, >= 1.3.4)
+    tilt (1.4.1)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  link_header (~> 0.0.8)
+  newrelic_rpm (~> 3.6.7.152)
+  rack (~> 1.5.2)
+  rest-client (~> 1.6.7)
+  sinatra (= 1.4.3)
